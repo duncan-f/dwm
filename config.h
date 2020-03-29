@@ -41,6 +41,9 @@ static const Rule rules[] = {
 	{ "krita",    		NULL,       NULL,       1 << 3,       0,           -1 },
 	{ "grafx2",   		NULL,       NULL,       1 << 3,       0,           -1 },
 	{ "Inkscape", 		NULL,       NULL,       1 << 3,       0,           -1 },
+	{ "St", 			"st",       "newsboat", 1 << 4,       0,           -1 },
+	{ "St", 			"st",       "calcurse", 1 << 5,       0,           -1 },
+	{ "St", 			"st",       "weechat",  1 << 7,       0,           -1 },
 };
 
 /* layout(s) */
