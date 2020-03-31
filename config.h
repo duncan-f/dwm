@@ -3,7 +3,7 @@
 
 /* appearance */
 static const char *fonts[] = {
-	"monospace:size=10",
+	"monospace:size=10:antialias=true:autohint=true",
 	"NotoColorEmoji:pixelsize=10:antialias=true:autohint=true"
 };
 static const char dmenufont[]       = "monospace:size=10";
@@ -36,6 +36,7 @@ static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Brave-browser",  NULL,       NULL,       1 << 1,       0,           -1 },
 	{ "firefox",  		NULL,       NULL,       1 << 1,       0,           -1 },
+	{ "tabbed","tabbed-surf",       NULL,       1 << 1,       0,           -1 },
 	{ "Code",     		NULL,       NULL,       1 << 2,       0,           -1 },
 	{ "Gimp",     		NULL,       NULL,       1 << 3,       0,           -1 },
 	{ "krita",    		NULL,       NULL,       1 << 3,       0,           -1 },
@@ -54,7 +55,7 @@ static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[T]",   tile },    	/* first entry is default */
 	{ "[F]",   NULL },   	/* no layout function means floating behavior */
-	{ "[M]",   monocle },    /* monocle is good for maximizing the preservation and focusing of the window */
+	{ "[M]",   monocle },   /* monocle is good for maximizing the preservation and focusing of the window */
 };
 
 #define MODKEY Mod4Mask
@@ -75,13 +76,13 @@ static const char *termcmd[]  = { "st", NULL };
 static Key keys[] = {
 	/* modifier                     key                 function        argument */
 	{ MODKEY,                       XK_b,               spawn,          SHCMD("$BROWSER") },
+	{ MODKEY|ShiftMask,             XK_b,               spawn,          SHCMD("surf-open https://duckduckgo.com") },
 	{ MODKEY|Mod1Mask,              XK_b,               togglebar,      {0} },
 	{ MODKEY,                       XK_c,               spawn,          SHCMD("$TERMINAL -e weechat") },
 	{ MODKEY|ShiftMask,             XK_c,               spawn,          SHCMD("$TERMINAL -e calcurse -D ~/.config/calcurse") },
 	{ MODKEY,                       XK_d,               spawn,          {.v = dmenucmd } },
 	{ Mod1Mask,			            XK_d,               incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,               setmfact,       {.f = -0.05} },
-	{ MODKEY|ShiftMask,             XK_h,               spawn,          SHCMD("tabbed -dc surf -e") },
 	{ Mod1Mask,			            XK_i,               incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_j,               focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,               focusstack,     {.i = -1 } },
@@ -139,15 +140,15 @@ static Key keys[] = {
 	{ 0,                            XK_Insert,			spawn,          SHCMD("dmenurecord") },
 	{ 0,                            XK_Pause,			spawn,          SHCMD("dmenurecord kill") },
 	{ 0,                            XK_Print,			spawn,          SHCMD("screenshot") },
-	{ 0,                            XF86XK_HomePage,	spawn,          SHCMD("tabbed -dc surf -e") },
+	{ 0,                            XF86XK_HomePage,	spawn,          SHCMD("surf-open https://duckduckgo.com") },
 	{ 0,							XF86XK_PowerOff,	spawn,			SHCMD("prompt 'Shutdown?' 'systemctl poweroff'") },
 	{ 0,							XF86XK_Sleep,		spawn,			SHCMD("prompt 'Hibernate?' 'systemctl hibernate'") },
 	{ 0,							XF86XK_Calculator,	spawn,			SHCMD("st -e bc -l") },
 	{ 0,                            XF86XK_WWW,                 spawn,          SHCMD("$BROWSER") },
     { 0,                            XF86XK_MonBrightnessDown,   spawn,          SHCMD("blman dec 5 && refbar") },
     { 0,                            XF86XK_MonBrightnessUp,     spawn,          SHCMD("blman inc 5 && refbar") },
-    { MODKEY,                       XF86XK_MonBrightnessDown,   spawn,          SHCMD("blman dec 10 && refbar") },
-    { MODKEY,                       XF86XK_MonBrightnessUp,     spawn,          SHCMD("blman inc 10 && refbar") },
+    { MODKEY,                       XF86XK_MonBrightnessDown,   spawn,          SHCMD("blman set 15 && refbar") },
+    { MODKEY,                       XF86XK_MonBrightnessUp,     spawn,          SHCMD("blman set 100 && refbar") },
     { 0,                            XF86XK_AudioPrev,			spawn,          SHCMD("volman prev") },
     { 0,                            XF86XK_AudioNext,			spawn,          SHCMD("volman next") },
     { 0,                            XF86XK_AudioPlay,           spawn,          SHCMD("volman toggle") },
